@@ -1,0 +1,18 @@
+{
+  "name": "packs-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "mongoose": "^4.4.2",
+    "packs-lib": "git+https://github.com/packs-game/packs-lib.git"
+  }
+}
