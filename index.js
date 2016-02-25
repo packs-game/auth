@@ -140,7 +140,7 @@ app.get('/user/:token', function(req, res) {
 		if (err || !users || !users[0] || users.length > 1) {
 			return res.sendStatus(400);
 		}
-		res.json({id: users[0].id, name: users[0].name});
+		res.json({id: users[0].id, name: users[0].name, superAdmin: users[0].superAdmin});
 	});
 });
 
