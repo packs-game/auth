@@ -6,7 +6,8 @@ var User = new Schema({
 	password: String,
 	searching: Boolean,
 	inGame: Boolean,
-	token: String
+	token: String,
+	superAdmin: Boolean
 });
 
 /* BAD */
