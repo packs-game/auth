@@ -72,6 +72,18 @@ function authenticate(req, res) {
 
 		//generate the users token
 		user.token = generateToken();
+
+		var diff = 60*12; //every 12 hours
+
+		var lastLoginReward = user.lastLoginRewardTime;
+		var rewardMinTime = new Date(lastLoginReward.getTime() + diff*60000);
+
+
+		if (rewardMinTime < Date.now()) {
+			user.updateLastLoginRewardTime();
+			lib.queue.send('items', {type: 'addRandomPower', min: 10, max: 20, playerId: user._id});
+		}
+
 		//save it back
 		user.save(function(err, user) {
 			var u = sanitizeUser(user);
