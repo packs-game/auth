@@ -50,11 +50,6 @@ function sanitizeUser(user) {
 }
 
 function authenticate(req, res) {
-	if (req.session.user) {
-		return res.status(400).json({
-			error: 'Already Authenticated'
-		});
-	}
 	if (!req.body.username || !req.body.password) {
 		return res.status(401).json({
 			error: 'Missing Username or Password'
@@ -95,11 +90,6 @@ function authenticate(req, res) {
 }
 
 function register(req, res) {
-	if (req.session.user) {
-		return res.status(400).json({
-			error: 'Already Authenticated'
-		});
-	}
 	if (!req.body.username || !req.body.password) {
 		return res.status(400).json({
 			error: 'Requires username and password'
@@ -122,6 +112,8 @@ function register(req, res) {
 			if (err) {
 				return res.sendStatus(500);
 			}
+			user.updateLastLoginRewardTime();
+			lib.queue.send('items', {type: 'addRandomPower', min: 30, max: 30, playerId: user._id});
 			authenticate(req,res);
 		});
 
